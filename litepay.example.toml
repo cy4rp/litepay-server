@@ -1,0 +1,20 @@
+# LitePay Server Configuration
+# Copy to litepay.toml and customize
+
+host = "0.0.0.0"
+port = 9000
+database_url = "sqlite://litepay.db?mode=rwc"
+site_title = "LitePay Server"
+
+# Lightning backend — choose one:
+
+# Mock backend (development, no real Lightning node needed)
+[ln_backend]
+type = "mock"
+
+# LND REST backend (production)
+# [ln_backend]
+# type = "lnd"
+# url = "https://127.0.0.1:8080"
+# macaroon = "0201036c6e640..."   # hex-encoded admin macaroon
+# tls_cert = "/path/to/tls.cert"  # optional
