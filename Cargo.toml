@@ -1,0 +1,57 @@
+[package]
+name = "litepay-server"
+version = "0.1.0"
+edition = "2021"
+description = "IoT-first, high-performance Lightning payment server — an LNbits alternative"
+license = "MIT"
+
+[dependencies]
+# Web framework
+axum = { version = "0.7", features = ["ws", "macros"] }
+axum-extra = { version = "0.9", features = ["typed-header"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+tokio = { version = "1", features = ["full"] }
+hyper = "1"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Database
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "sqlite", "chrono", "uuid"] }
+
+# HTTP client (for LN backends)
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+
+# Crypto & encoding
+hex = "0.4"
+sha2 = "0.10"
+rand = "0.8"
+base64 = "0.22"
+bech32 = "0.11"
+
+# Time & IDs
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+
+# Config
+toml = "0.8"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# QR code generation
+qrcode = "0.14"
+image = { version = "0.25", default-features = false, features = ["png"] }
+
+# Async traits
+async-trait = "0.1"
+
+# Error handling
+thiserror = "1"
+anyhow = "1"
+
+[dev-dependencies]
+tokio-test = "0.4"
