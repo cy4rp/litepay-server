@@ -36,11 +36,7 @@ pub struct PayResult {
 #[async_trait]
 pub trait LnBackend: Send + Sync {
     /// Create a new invoice (receive).
-    async fn create_invoice(
-        &self,
-        amount_msat: i64,
-        memo: &str,
-    ) -> anyhow::Result<InvoiceResult>;
+    async fn create_invoice(&self, amount_msat: i64, memo: &str) -> anyhow::Result<InvoiceResult>;
 
     /// Pay an existing bolt11 invoice (send).
     async fn pay_invoice(&self, bolt11: &str) -> anyhow::Result<PayResult>;

@@ -21,10 +21,7 @@ pub async fn qr_png(Path(data): Path<String>) -> Result<impl IntoResponse, AppEr
         .write_to(&mut buf, image::ImageFormat::Png)
         .map_err(|e| AppError::Internal(anyhow::anyhow!("PNG encode error: {}", e)))?;
 
-    Ok((
-        [(header::CONTENT_TYPE, "image/png")],
-        buf.into_inner(),
-    ))
+    Ok(([(header::CONTENT_TYPE, "image/png")], buf.into_inner()))
 }
 
 /// GET /lnurlp/:wallet_id/qr — QR code for LNURL-pay endpoint
@@ -55,10 +52,7 @@ pub async fn lnurl_qr(
         .write_to(&mut buf, image::ImageFormat::Png)
         .map_err(|e| AppError::Internal(anyhow::anyhow!("PNG encode error: {}", e)))?;
 
-    Ok((
-        [(header::CONTENT_TYPE, "image/png")],
-        buf.into_inner(),
-    ))
+    Ok(([(header::CONTENT_TYPE, "image/png")], buf.into_inner()))
 }
 
 fn encode_lnurl(url: &str) -> String {

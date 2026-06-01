@@ -12,11 +12,17 @@ pub struct MockBackend {
     invoices: Arc<Mutex<HashMap<String, PaymentStatus>>>,
 }
 
-impl MockBackend {
-    pub fn new() -> Self {
+impl Default for MockBackend {
+    fn default() -> Self {
         Self {
             invoices: Arc::new(Mutex::new(HashMap::new())),
         }
+    }
+}
+
+impl MockBackend {
+    pub fn new() -> Self {
+        Self::default()
     }
 
     fn random_hash() -> String {
@@ -33,11 +39,7 @@ impl MockBackend {
 
 #[async_trait]
 impl LnBackend for MockBackend {
-    async fn create_invoice(
-        &self,
-        amount_msat: i64,
-        _memo: &str,
-    ) -> anyhow::Result<InvoiceResult> {
+    async fn create_invoice(&self, amount_msat: i64, _memo: &str) -> anyhow::Result<InvoiceResult> {
         let payment_hash = Self::random_hash();
         let payment_request = Self::fake_bolt11(&payment_hash, amount_msat);
 

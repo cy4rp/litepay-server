@@ -117,13 +117,11 @@ pub mod wallets {
     }
 
     pub async fn get_by_any_key(pool: &SqlitePool, key: &str) -> Result<Wallet, sqlx::Error> {
-        sqlx::query_as::<_, Wallet>(
-            "SELECT * FROM wallets WHERE admin_key = ? OR invoice_key = ?",
-        )
-        .bind(key)
-        .bind(key)
-        .fetch_one(pool)
-        .await
+        sqlx::query_as::<_, Wallet>("SELECT * FROM wallets WHERE admin_key = ? OR invoice_key = ?")
+            .bind(key)
+            .bind(key)
+            .fetch_one(pool)
+            .await
     }
 
     pub async fn update_balance(

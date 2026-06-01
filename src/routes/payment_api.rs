@@ -147,8 +147,7 @@ pub async fn get_payment(
             .unwrap_or(crate::ln::PaymentStatus::Pending);
 
         if ln_status != crate::ln::PaymentStatus::Pending {
-            crate::db::payments::update_status(&state.db, &checking_id, ln_status.as_str())
-                .await?;
+            crate::db::payments::update_status(&state.db, &checking_id, ln_status.as_str()).await?;
 
             // If incoming payment is now paid, credit wallet
             if ln_status == crate::ln::PaymentStatus::Paid && payment.is_incoming {

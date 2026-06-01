@@ -15,9 +15,10 @@ pub struct Config {
     pub site_title: String,
 }
 
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Debug, Default, Deserialize, Clone)]
 #[serde(tag = "type", rename_all = "lowercase")]
 pub enum LnBackendConfig {
+    #[default]
     Mock,
     Lnd {
         url: String,
@@ -25,12 +26,6 @@ pub enum LnBackendConfig {
         #[serde(default)]
         tls_cert: Option<String>,
     },
-}
-
-impl Default for LnBackendConfig {
-    fn default() -> Self {
-        Self::Mock
-    }
 }
 
 fn default_host() -> String {

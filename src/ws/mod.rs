@@ -17,11 +17,17 @@ pub struct PaymentEvent {
     pub payment: PaymentResponse,
 }
 
-impl NotificationHub {
-    pub fn new() -> Self {
+impl Default for NotificationHub {
+    fn default() -> Self {
         Self {
             senders: Arc::new(RwLock::new(HashMap::new())),
         }
+    }
+}
+
+impl NotificationHub {
+    pub fn new() -> Self {
+        Self::default()
     }
 
     /// Subscribe to payment events for a specific wallet.

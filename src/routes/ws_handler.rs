@@ -27,7 +27,7 @@ async fn handle_socket(mut socket: WebSocket, state: AppState, wallet_id: String
             // Forward payment events to the WebSocket client
             Ok(event) = rx.recv() => {
                 let json = serde_json::to_string(&event).unwrap_or_default();
-                if socket.send(Message::Text(json.into())).await.is_err() {
+                if socket.send(Message::Text(json)).await.is_err() {
                     break;
                 }
             }

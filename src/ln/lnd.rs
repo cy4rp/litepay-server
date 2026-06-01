@@ -64,11 +64,7 @@ impl LndBackend {
 
 #[async_trait]
 impl LnBackend for LndBackend {
-    async fn create_invoice(
-        &self,
-        amount_msat: i64,
-        memo: &str,
-    ) -> anyhow::Result<InvoiceResult> {
+    async fn create_invoice(&self, amount_msat: i64, memo: &str) -> anyhow::Result<InvoiceResult> {
         let body = serde_json::json!({
             "value_msat": amount_msat.to_string(),
             "memo": memo,
@@ -121,9 +117,7 @@ impl LnBackend for LndBackend {
             }
         }
 
-        let hash = data
-            .payment_hash
-            .unwrap_or_default();
+        let hash = data.payment_hash.unwrap_or_default();
 
         Ok(PayResult {
             payment_hash: hash,
@@ -133,8 +127,7 @@ impl LnBackend for LndBackend {
 
     async fn check_payment(&self, payment_hash: &str) -> anyhow::Result<PaymentStatus> {
         let hash_bytes = hex::decode(payment_hash)?;
-        let r_hash_b64 =
-            base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(&hash_bytes);
+        let r_hash_b64 = base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(&hash_bytes);
 
         let resp = self
             .client

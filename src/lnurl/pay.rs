@@ -102,8 +102,9 @@ pub async fn lnurl_pay_callback(
 }
 
 fn lnurl_metadata(wallet_id: &str) -> String {
-    serde_json::json!([
-        ["text/plain", format!("Payment to LitePay wallet {}", wallet_id)]
-    ])
+    serde_json::json!([[
+        "text/plain",
+        format!("Payment to LitePay wallet {}", wallet_id)
+    ]])
     .to_string()
 }
